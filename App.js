@@ -1,13 +1,30 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom'
-import ImageComponent from "./src/components/imageComponent/imageComponent";
+import ImageComponent from "./src/components/imageComponent";
 
 class App extends Component {
+   constructor(props) {
+      super(props);
+      this.state = {
+         selectedPosition: "top",
+      }
+      this.getPosition = this.getPosition.bind(this);
+   }
+   getPosition(e) {
+      this.setState({
+         selectedPosition: e.target.value
+      })
+   }
    render() {
       return (
-         <BrowserRouter>
-            <Route path="/" component={ImageComponent} />
-         </BrowserRouter>
+         <React.Fragment>
+            <select onChange={this.getPosition}>
+               <option value="top">Top</option>
+               <option value="bottom">Bottom</option>
+               <option value="right">Right</option>
+               <option value="left">Left</option>
+            </select>
+            <ImageComponent position={this.state.selectedPosition} />
+         </React.Fragment>
       );
    }
 }
